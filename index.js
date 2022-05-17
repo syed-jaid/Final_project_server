@@ -6,10 +6,8 @@ const jwt = require('jsonwebtoken');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const port = process.env.PROT || 5000
 
-
 app.use(express.json())
 app.use(cors())
-
 
 function verifyJWT(req, res, next) {
     const authorization = req.headers.authorization
@@ -77,7 +75,6 @@ async function run() {
 
         app.get('/available', async (req, res) => {
             const date = req.query.date;
-
             // step 1:  get all services
             const services = await Databasae.find().toArray();
 
@@ -113,7 +110,6 @@ async function run() {
             res.send({ result, token });
         })
 
-
         app.get('/admin/:email', async (req, res) => {
             const email = req.params.email;
             const user = await userCollection.findOne({ email: email });
@@ -136,8 +132,9 @@ async function run() {
 }
 run().catch(console.dir);
 
+
 app.get('/', (req, res) => {
-    res.send('Hello from doctor portal!')
+    res.send('Hello world from doctor portal!')
 })
 
 app.listen(port, () => {
